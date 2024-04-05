@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>Module 1.4 - Common Data Structures</title>
+  <link rel="icon" href="./../../assets/favicon.svg" />
+  <link rel="shortcut icon" href="./../../assets/favicon.png" />
+  <link rel="stylesheet" href="./../../dist/reset.css" />
+  <link rel="stylesheet" href="./../../dist/reveal.css" />
+  <link rel="stylesheet" href="./../.././assets/styles/PBA-theme.css" id="theme" />
+  <link rel="stylesheet" href="./../../css/highlight/shades-of-purple.css" />
+
+  <link rel="stylesheet" href="./../.././assets/styles/custom-classes.css" />
+
+</head>
+
+<body class="site">
+  <header class="site-header">
+    <!-- This logo is a link only on the watching server, not the production build -->
+    <a href="">
+      <img style="height: 2.5vw;" class="watermark-logo" src="./../../assets/img/0-Shared/logo/openguild-logo.png"
+        alt="PBA Logo">
+    </a>
+  </header>
+  <main class="reveal">
+    <article class="slides">
+      <section  data-markdown><script type="text/template">
+
+# Common Data Structures
+</script></section><section  data-markdown><script type="text/template">
+## Enumeration
+
+- Data that can be one of multiple different possibilities
+  - Each possibility is called a “variant”
+- Provides information about your program to the compiler
+  - More robust programs
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right,
+}
+
+fn which_way(go: Direction) -> &'static str {
+    match go {
+        Direction::Up => "up",
+        Direction::Down => "down",
+        Direction::Left => "left",
+        Direction::Right => "right",
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Structure
+
+- A type that contains multiple pieces of data
+  - All or nothing – cannot have some pieces of data and not others
+- Each piece of data is called a “field”
+- Makes working with data easier
+  - Similar data can be grouped together
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+struct ShippingBox {
+    depth: i32,
+    width: i32,
+    height: i32,
+}
+
+fn main() {
+    let my_box = ShippingBox {
+        depth: 3,
+        width: 2,
+        height: 5,
+    };
+
+    let tall = my_box.height;
+    println!("the box is {:?} units tall", tall);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Tuples
+
+- A type of “record”
+- Store data anonymously
+  - No need to name fields
+- Useful to return pairs of data from functions
+- Can be “destructured” easily into variables
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+enum Access {
+    Full,
+}
+
+fn one_two_three() -> (i32, i32, i32) {
+    (1, 2, 3)
+}
+
+fn main() {
+    let numbers = one_two_three();
+    let (x, y, z) = one_two_three();
+    println!("{:?}, {:?}", x, numbers.0); // 1
+    println!("{:?}, {:?}", y, numbers.1); // 2
+    println!("{:?}, {:?}", z, numbers.2); // 3
+
+    let (employee, access) = ("Jake", Access::Full);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Expressions
+
+- Rust is an expression-based language
+  - Most things are evaluated and return some value
+- Expression values coalesce to a single point
+  - Can be used for nesting logic
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+let my_num = 3;
+let is_lt_5 = if my_num < 5 {
+    true
+} else {
+    false
+};
+
+let is_lt_5 = my_num < 5;
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+let my_num = 3;
+let message = match my_num {
+    1 => "hello",
+    _ => "goodbye"
+};
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+enum Menu {
+    Burger,
+    Fries,
+    Drink,
+}
+
+let paid = true;
+let item = Menu::Drink;
+let drink_type = "water";
+let order_placed = match item {
+    Menu::Drink => {
+        if drink_type == "water" {
+            true
+        } else {
+            false
+        }
+    },
+    _ => true,
+};
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## Option
+
+- A type that may be one of two things
+  - Some data of a specified type
+  - Nothing
+- Used in scenarios where data may not be required or is unavailable
+  - Unable to find something
+  - Ran out of items in a list
+  - Form field not filled out
+</script></section><section  data-markdown><script type="text/template">
+## Definition
+
+```rust
+enum Option<T> {
+    Some(T),
+    None,
+}
+
+```
+
+## Example
+
+```rust
+struct Customer {
+    age: Option<i32>,
+    email: String,
+}
+
+let mark = Customer {
+    age: Some(22),
+    email: "mark@example.com".to_owned(),
+};
+
+let becky = Customer {
+    age: None,
+    email: "becky@example.com".to_owned(),
+};
+
+match becky.age {
+    Some(age) => println!("customer is {} years old", age),
+    None => println!("customer age not provided"),
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+struct GroceryItem {
+    name: String,
+    qty: i32,
+}
+
+fn find_quantity(name: &str) -> Option<i32> {
+    let groceries = vec![
+        GroceryItem { name: "bananas".to_owned(), qty: 4 },
+        GroceryItem { name: "eggs".to_owned(), qty: 12 },
+        GroceryItem { name: "bread".to_owned(), qty: 1 },
+    ];
+
+    for item in groceries {
+        if item.name == name {
+            return Some(item.qty);
+        }
+    }
+
+    None
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Result
+
+- A data type that contains one of two types of data:
+  - “Successful” data
+  - “Error” data
+- Used in scenarios where an action needs to be taken, but has the possibility of failure
+  - Copying a file
+  - Connecting to a website
+</script></section><section  data-markdown><script type="text/template">
+## Definition
+
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E),
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+struct SoundData {
+    // assuming SoundData has a field called `name`
+    name: String,
+}
+
+impl SoundData {
+    fn new(name: &str) -> SoundData {
+        SoundData {
+            name: name.to_owned(),
+        }
+    }
+}
+
+fn get_sound(name: &str) -> Result<SoundData, String> {
+    if name == "alert" {
+        Ok(SoundData::new("alert"))
+    } else {
+        Err("unable to find sound data".to_owned())
+    }
+}
+
+fn main() {
+    let sound = get_sound("alert");
+    match sound {
+        Ok(_) => println!("sound data located"),
+        Err(e) => println!("error: {}", e),
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Vector
+
+- Multiple pieces of data
+  - Must be the same type
+- Used for lists of information
+- Can add, remove, and traverse the entries
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+let my_numbers = vec![1, 2, 3];
+
+let mut my_numbers = Vec::new();
+my_numbers.push(1);
+my_numbers.push(2);
+my_numbers.push(3);
+my_numbers.pop();
+let length = my_numbers.len(); // this is 2
+
+let two = my_numbers[1];
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+let my_numbers = vec![1, 2, 3];
+
+for num in my_numbers {
+    println!("{:?}", num);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## String and &str
+
+- Two commonly used types of strings
+  - String - owned
+  - &str – borrowed String slice
+- Must use an owned String to store in a struct
+- Use &str when passing to a function
+</script></section><section  data-markdown><script type="text/template">
+## Example – Pass to function
+
+```rust
+fn print_it(data: &str) {
+    println!("{:?}", data);
+}
+
+fn main() {
+    print_it("a string slice");
+    let owned_string = "owned string".to_owned();
+    let another_owned = String::from("another");
+    print_it(&owned_string);
+    print_it(&another_owned);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example – Will not work
+
+```rust
+struct Employee {
+    name: &'static str,
+}
+
+fn main() {
+    let emp_name = "Jayson";
+    let emp = Employee {
+        name: emp_name,
+    };
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example – Works!
+
+```rust
+struct Employee {
+    name: String,
+}
+
+fn main() {
+    let emp_name = "Jayson".to_owned();
+    let emp = Employee {
+        name: emp_name
+    };
+}
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## Hashmap
+
+- Collection that stores data as key-value pairs
+  - Data is located using the “key”
+  - The data is the “value”
+- Similar to definitions in a dictionary
+- Very fast to retrieve data using the key
+</script></section><section  data-markdown><script type="text/template">
+## Example: find data
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let mut people = HashMap::new();
+    people.insert("Susan", 21);
+    people.insert("Ed", 13);
+    people.insert("Will", 14);
+    people.insert("Cathy", 22);
+    people.remove("Susan");
+
+    match people.get("Ed") {
+        Some(age) => println!("age = {:?}", age),
+        None => println!("not found"),
+    }
+}
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example: iterate
+
+```rust
+for (person, age) in people.iter() {
+    println!("person = {:?}, age = {:?}", person, age);
+}
+
+for person in people.keys() {
+    println!("person = {:?}", person);
+}
+
+for age in people.values() {
+    println!("age = {:?}", age);
+}
+
+```
+</script></section>
+    </article>
+  </main>
+
+  <script src="./../../dist/reveal.js"></script>
+
+  <script src="./../../plugin/markdown/markdown.js"></script>
+  <script src="./../../plugin/highlight/highlight.js"></script>
+  <script src="./../../plugin/zoom/zoom.js"></script>
+  <script src="./../../plugin/notes/notes.js"></script>
+  <script src="./../../plugin/math/math.js"></script>
+
+  <script src="./../../assets/plugin/mermaid.js"></script>
+  <script src="./../../assets/plugin/mermaid-theme.js"></script>
+
+  <script src="./../../assets/plugin/chart/chart.js"></script>
+  <script src="./../../assets/plugin/chart/chart.min.js"></script>
+
+  <script src="./../../assets/plugin/tailwindcss.min.js"></script>
+
+  <script>
+    function extend() {
+      var target = {};
+      for (var i = 0; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (source.hasOwnProperty(key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    }
+
+    // default options to init reveal.js
+    var defaultOptions = {
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      transition: 'default', // none/fade/slide/convex/concave/zoom
+      slideNumber: true,
+      mermaid: {
+        startOnLoad: false,
+        logLevel: 3,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: purple,
+          primaryTextColor: white,
+          primaryBorderColor: pink,
+          lineColor: pink,
+          secondaryColor: lightPurple,
+          tertiaryColor: lightPurple,
+        },
+      },
+      chart: {
+        defaults: {
+          color: 'lightgray', // color of labels
+          scale: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 },
+            grid: { color: "lightgray" }, // color of grid lines
+          },
+        },
+        line: { borderColor: ["#ccc", "#E6007A", "#6D3AEE"], "borderDash": [[5, 10], [0, 0]] },
+        bar: { backgroundColor: ["#ccc", "#E6007A", "#6D3AEE"] },
+      },
+      plugins: [
+        RevealMarkdown,
+        RevealHighlight,
+        RevealZoom,
+        RevealNotes,
+        RevealMath,
+        RevealMermaid,
+        RevealChart
+      ]
+    };
+
+    // options from URL query string
+    var queryOptions = Reveal().getQueryHash() || {};
+
+    var options = extend(defaultOptions, {"width":1400,"height":900,"margin":0,"minScale":0.2,"maxScale":2,"transition":"none","controls":true,"progress":true,"center":true,"slideNumber":true,"backgroundTransition":"fade"}, queryOptions);
+  </script>
+
+
+  <script>
+    Reveal.initialize(options);
+  </script>
+</body>
+
+</html>

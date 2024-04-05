@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>Module 1.2 - Program Life Cycle</title>
+  <link rel="icon" href="./../../assets/favicon.svg" />
+  <link rel="shortcut icon" href="./../../assets/favicon.png" />
+  <link rel="stylesheet" href="./../../dist/reset.css" />
+  <link rel="stylesheet" href="./../../dist/reveal.css" />
+  <link rel="stylesheet" href="./../.././assets/styles/PBA-theme.css" id="theme" />
+  <link rel="stylesheet" href="./../../css/highlight/shades-of-purple.css" />
+
+  <link rel="stylesheet" href="./../.././assets/styles/custom-classes.css" />
+
+</head>
+
+<body class="site">
+  <header class="site-header">
+    <!-- This logo is a link only on the watching server, not the production build -->
+    <a href="">
+      <img style="height: 2.5vw;" class="watermark-logo" src="./../../assets/img/0-Shared/logo/openguild-logo.png"
+        alt="PBA Logo">
+    </a>
+  </header>
+  <main class="reveal">
+    <article class="slides">
+      <section  data-markdown><script type="text/template">
+
+# Fundamentals
+</script></section><section  data-markdown><script type="text/template">
+## Execution Flow
+
+- Code executed line-by-line
+- Actions are performed & control flow may change
+  - Specific conditions can change control flow
+    - “if”
+    - “else”
+    - “else if”
+</script></section><section  data-markdown><script type="text/template">
+## Example – if..else
+
+```rust
+let a = 99;
+if a > 99 {
+    println!("Big number");
+} else {
+    println!("Small number");
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example – Nested if..else
+
+```rust
+let a = 99;
+if a > 99 {
+    if a > 200 {
+        println!("Huge number");
+    } else {
+        println!("Big number");
+    }
+} else {
+    println!("Small number");
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example – if..else if..else
+
+```rust
+let a = 99;
+if a > 200 {
+    println!("Huge number");
+} else if a > 99 {
+    println!("Big number");
+} else {
+    println!("Small number");
+}
+
+// This will not work
+if a > 99 {
+    println!("Big number");
+} else if a > 200 {
+    println!("Huge number");
+} else {
+    println!("Small number");
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Repetition
+
+- Called “looping” or “iteration”
+- Multiple types of loops
+  - “loop” - infinite loop
+  - “while” – conditional loop
+</script></section><section  data-markdown><script type="text/template">
+## Loop
+
+```rust
+let mut a = 0;
+loop {
+    if a == 5 {
+        break;
+    }
+    println!("{:?}", a);
+    a = a + 1;
+}
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## While loop
+
+```rust
+let mut a = 0;
+while a != 5 {
+    println!("{:?}", a);
+    a = a + 1;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Match
+
+- Add logic to program
+- Similar to if..else
+- Exhaustive
+  - All options must be accounted for
+</script></section><section  data-markdown><script type="text/template">
+## Example with boolean
+
+```rust
+fn main() {
+    let some_bool = true;
+    match some_bool {
+        true => println!("it's true"),
+        false => println!("it's false"),
+    }
+}
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example with int
+
+```rust
+fn main() {
+    let some_int = 3;
+    match some_int {
+        1 => println!("it's 1"),
+        2 => println!("it's 2"),
+        3 => println!("it's 3"),
+        _ => println!("it's something else"),
+    }
+}
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## match vs else..if
+
+- match will be checked by the compiler
+  - If a new possibility is added, you will be notified when this occurs
+- else..if is not checked by the compiler
+  - If a new possibility is added, your code may contain a bug
+</script></section><section  data-markdown><script type="text/template">
+## Iterator
+
+- Iteration is provided by the Iterator trait
+  - Only one function to be implemented
+  - Provides for..in syntax
+  - Access to all iterator adapters
+    - map, take, filter, etc
+- Can be implemented for any structure
+</script></section><section  data-markdown><script type="text/template">
+## Iterator Trait
+
+```rust
+trait Iterator {
+    type Item;
+    fn next(&mut self) -> Option<Self::Item>;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example - Iterator
+
+```rust
+struct Odd {
+    number: isize,
+    max: isize,
+}
+
+impl Iterator for Odd {
+    type Item = isize;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        self.number += 2;
+        if self.number <= self.max {
+            Some(self.number)
+        } else {
+            None
+        }
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example - Iterator
+
+```rust
+impl Odd {
+    fn new(max: isize) -> Self {
+        Self { number: -1, max }
+    }
+}
+
+fn main() {
+    let mut odds = Odd::new(7);
+    println!("{:?}", odds.next()); // Some(1)
+    println!("{:?}", odds.next()); // Some(3)
+    println!("{:?}", odds.next()); // Some(5)
+    println!("{:?}", odds.next()); // Some(7)
+    println!("{:?}", odds.next()); // None
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example – for..in
+
+```rust
+let mut odds = Odd::new(7);
+for o in odds {
+    println!("odd: {}", o);
+}
+
+// odd: 1
+// odd: 3
+// odd: 5
+// odd: 7
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## Example – Adapters
+
+```rust
+let mut evens = Odd::new(8);
+for e in evens.map(|odd| odd + 1) {
+    println!("even: {}", e);
+}
+
+// even: 2
+// even: 4
+// even: 6
+// even: 8
+```
+</script></section><section  data-markdown><script type="text/template">
+## Iterator Trait
+
+- By default requires mutable access to structure
+  - Inconvenient
+  - Not always possible
+  - Mutation not always needed
+- Solution:
+  - Implement IntoIterator trait & call .iter() on inner collection
+    - Vector, HashMap
+</script></section><section  data-markdown><script type="text/template">
+## IntoIterator Trait
+
+- Yields an Iterator (yield items/values)
+  - Implementation details determine how items are accessed
+  - Borrow, mutable, move
+</script></section><section  data-markdown><script type="text/template">
+## IntoIterator Trait
+
+```rust
+trait IntoIterator {
+    type Item;
+    type IntoIter: Iterator<Item = Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Move
+
+```rust
+struct Friends {
+    names: Vec<String>,
+}
+
+impl IntoIterator for Friends {
+    type Item = String;
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.names.into_iter()
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+```rust
+struct Friends {
+    names: Vec<String>,
+}
+
+impl IntoIterator for Friends {
+    type Item = String;
+    type IntoIter = std::vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.names.into_iter()
+    }
+}
+
+for f in friends {
+    println!("{:?}", f);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Value Moved – Error!
+
+```rust
+for f in friends {
+    println!("{:?}", f);
+}
+// `friends` moved due to this implicit call to `.into_iter()`
+
+for f in friends {
+    println!("{:?}", f);
+}
+// ^^^^^^ value used here after move
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## Borrow
+
+```rust
+struct Friends {
+    names: Vec<String>,
+}
+
+impl<'a> IntoIterator for &'a Friends {
+    type Item = &'a String;
+    type IntoIter = std::slice::Iter<'a, String>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.names.iter()
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Iteration
+
+```rust
+for f in friends {
+    println!("{:?}", f);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Mutable Borrow
+
+```rust
+struct Friends {
+    names: Vec<String>,
+}
+
+impl<'a> IntoIterator for &'a mut Friends {
+    type Item = &'a mut String;
+    type IntoIter = std::slice::IterMut<'a, String>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.names.iter_mut()
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Iteration
+
+```rust
+let names = vec![
+    "Albert".to_owned(),
+    "Sara".to_owned(),
+];
+
+let mut friends = Friends { names };
+
+for f in &mut friends {
+    *f = "Frank".to_string();
+    println!("{:?}", f);
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Iter Methods
+
+- Convention for exposing iteration is to provide up to two methods:
+  - .iter()
+    - Iteration over borrowed values
+  - .iter_mut()
+    - Iteration over borrowed mutable values
+- Implement these by simply calling into_iter() after implementing the IntoIterator trait
+- These are optional, but allow for easy combinator usage without the for loop
+</script></section><section  data-markdown><script type="text/template">
+## Example
+
+```rust
+impl Friends {
+    fn iter(&self) -> std::slice::Iter<'_, String> {
+        self.into_iter()
+    }
+
+    fn iter_mut(&mut self) -> std::slice::IterMut<'_, String> {
+        self.into_iter()
+    }
+}
+
+let total = friends.iter().count();
+```
+</script></section><section  data-markdown><script type="text/template">
+# Implementing IntoIterator Using a Custom Iterator
+</script></section><section  data-markdown><script type="text/template">
+## Mini Iterator Review
+
+- Iterator trait allows iteration over a collection
+  - Yield items
+  - Struct must be mutable & contain iteration state information
+- IntoIterator trait defines a proxy struct & determines how data is accessed
+  - Move, borrow, mutation
+</script></section><section  data-markdown><script type="text/template">
+## Problem
+
+- Implementing IntoIterator allows control of the iteration, but...
+  - We aren’t using an existing collection to store data
+    - No .iter() or .into_iter()
+  - We don’t want to pollute our data structure with iteration information
+</script></section><section  data-markdown><script type="text/template">
+## Solution
+
+- Make an intermediary struct
+  - Implement Iterator
+    - Mutable, handles iteration state
+- Implement IntoIterator on data struct
+  - Combined with the intermediary struct will allow iteration
+</script></section><section  data-markdown><script type="text/template">
+## Setup
+
+```rust
+struct Color {
+    r: u8,
+    g: u8,
+    b: u8,
+}
+
+struct ColorIntoIter {
+    color: Color,
+    position: u8,
+}
+
+struct ColorIter<'a> {
+    color: &'a Color,
+    position: u8,
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Review – Iterator Trait
+
+```rust
+trait Iterator {
+    type Item;
+    fn next(&mut self) -> Option<Self::Item>;
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Impl Iterator - Move
+
+```rust
+struct Color {
+    r: u8,
+    g: u8,
+    b: u8,
+}
+
+struct ColorIntoIter {
+    color: Color,
+    position: u8,
+}
+
+impl Iterator for ColorIntoIter {
+    type Item = u8;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let next = match self.position {
+            0 => Some(self.color.r),
+            1 => Some(self.color.g),
+            2 => Some(self.color.b),
+            _ => None,
+        };
+        self.position += 1;
+        next
+    }
+}
+
+```
+</script></section><section  data-markdown><script type="text/template">
+## Impl IntoIterator - Move
+
+```rust
+struct Color {
+    r: u8,
+    g: u8,
+    b: u8,
+}
+
+struct ColorIntoIter {
+    color: Color,
+    position: u8,
+}
+
+impl IntoIterator for Color {
+    type Item = u8;
+    type IntoIter = ColorIntoIter;
+
+    fn into_iter(self) -> Self::IntoIter {
+        ColorIntoIter {
+            color: self,
+            position: 0,
+        }
+    }
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Done!
+
+```rust
+let color = Color {
+    r: 10,
+    g: 20,
+    b: 30,
+};
+
+for c in color {
+    println!("{}", c);
+}
+
+// 10
+// 20
+// 30
+```
+</script></section><section  data-markdown><script type="text/template">
+## Overview
+
+```rust
+let color = Color {
+    r: 10,
+    g: 20,
+    b: 30,
+};
+
+for c in color {
+    println!("{}", c);
+}
+
+struct ColorIntoIter {
+    color: Color,
+    position: u8,
+}
+
+struct Color {
+    r: u8,
+    g: u8,
+    b: u8,
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Impl Iterator - Borrow
+
+```rust
+impl<'a> Iterator for ColorIter<'a> {
+    type Item = u8;
+
+    fn next(&mut self) -> Option<Self::Item> {
+        let next = match self.position {
+            0 => Some(self.color.r),
+            1 => Some(self.color.g),
+            2 => Some(self.color.b),
+            _ => None,
+        };
+
+        self.position += 1;
+        next
+    }
+}
+
+struct Color {
+    r: u8,
+    g: u8,
+    b: u8,
+}
+
+struct ColorIter<'a> {
+    color: &'a Color,
+    position: u8,
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Impl IntoIterator - Borrow
+
+```rust
+impl<'a> IntoIterator for &'a Color {
+    type Item = u8;
+    type IntoIter = ColorIter<'a>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        ColorIter {
+            color: &self,
+            position: 0,
+        }
+    }
+}
+
+struct Color {
+    r: u8,
+    g: u8,
+    b: u8,
+}
+
+struct ColorIter<'a> {
+    color: &'a Color,
+    position: u8,
+}
+```
+</script></section><section  data-markdown><script type="text/template">
+## Done
+
+```rust
+let color = Color {
+    r: 10,
+    g: 20,
+    b: 30,
+};
+
+for c in &color {
+    println!("{}", c);
+}
+
+for c in &color {
+    println!("{}", c);
+}
+
+// 10
+// 20
+// 30
+// 10
+// 20
+// 30
+```
+</script></section><section  data-markdown><script type="text/template">
+## Notes
+
+- Non-trivial to implement mutable iteration using IntoIterator
+  - Collect mutable references into a Vector and return it
+  - Use unsafe to bypass compiler checks
+- Prefer using existing .iter() methods on structures when possible
+  - Vectors, HashMaps, etc
+  - Easier to work with, covers most cases
+</script></section>
+    </article>
+  </main>
+
+  <script src="./../../dist/reveal.js"></script>
+
+  <script src="./../../plugin/markdown/markdown.js"></script>
+  <script src="./../../plugin/highlight/highlight.js"></script>
+  <script src="./../../plugin/zoom/zoom.js"></script>
+  <script src="./../../plugin/notes/notes.js"></script>
+  <script src="./../../plugin/math/math.js"></script>
+
+  <script src="./../../assets/plugin/mermaid.js"></script>
+  <script src="./../../assets/plugin/mermaid-theme.js"></script>
+
+  <script src="./../../assets/plugin/chart/chart.js"></script>
+  <script src="./../../assets/plugin/chart/chart.min.js"></script>
+
+  <script src="./../../assets/plugin/tailwindcss.min.js"></script>
+
+  <script>
+    function extend() {
+      var target = {};
+      for (var i = 0; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (source.hasOwnProperty(key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    }
+
+    // default options to init reveal.js
+    var defaultOptions = {
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      transition: 'default', // none/fade/slide/convex/concave/zoom
+      slideNumber: true,
+      mermaid: {
+        startOnLoad: false,
+        logLevel: 3,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: purple,
+          primaryTextColor: white,
+          primaryBorderColor: pink,
+          lineColor: pink,
+          secondaryColor: lightPurple,
+          tertiaryColor: lightPurple,
+        },
+      },
+      chart: {
+        defaults: {
+          color: 'lightgray', // color of labels
+          scale: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 },
+            grid: { color: "lightgray" }, // color of grid lines
+          },
+        },
+        line: { borderColor: ["#ccc", "#E6007A", "#6D3AEE"], "borderDash": [[5, 10], [0, 0]] },
+        bar: { backgroundColor: ["#ccc", "#E6007A", "#6D3AEE"] },
+      },
+      plugins: [
+        RevealMarkdown,
+        RevealHighlight,
+        RevealZoom,
+        RevealNotes,
+        RevealMath,
+        RevealMermaid,
+        RevealChart
+      ]
+    };
+
+    // options from URL query string
+    var queryOptions = Reveal().getQueryHash() || {};
+
+    var options = extend(defaultOptions, {"width":1400,"height":900,"margin":0,"minScale":0.2,"maxScale":2,"transition":"none","controls":true,"progress":true,"center":true,"slideNumber":true,"backgroundTransition":"fade"}, queryOptions);
+  </script>
+
+
+  <script>
+    Reveal.initialize(options);
+  </script>
+</body>
+
+</html>

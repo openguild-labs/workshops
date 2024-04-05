@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <title>Exercise for module 1</title>
+  <link rel="icon" href="./../../assets/favicon.svg" />
+  <link rel="shortcut icon" href="./../../assets/favicon.png" />
+  <link rel="stylesheet" href="./../../dist/reset.css" />
+  <link rel="stylesheet" href="./../../dist/reveal.css" />
+  <link rel="stylesheet" href="./../.././assets/styles/PBA-theme.css" id="theme" />
+  <link rel="stylesheet" href="./../../css/highlight/shades-of-purple.css" />
+
+  <link rel="stylesheet" href="./../.././assets/styles/custom-classes.css" />
+
+</head>
+
+<body class="site">
+  <header class="site-header">
+    <!-- This logo is a link only on the watching server, not the production build -->
+    <a href="">
+      <img style="height: 2.5vw;" class="watermark-logo" src="./../../assets/img/0-Shared/logo/openguild-logo.png"
+        alt="PBA Logo">
+    </a>
+  </header>
+  <main class="reveal">
+    <article class="slides">
+      <section  data-markdown><script type="text/template">
+
+Topic: Functions
+
+Program requirements:
+
+- Displays your first and last name
+
+<aside class="notes"><ul>
+<li>Use a function to display your first name</li>
+<li>Use a function to display your last name</li>
+<li>Use the println macro to display messages to the terminal</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Basic arithmetic
+
+Program requirements:
+
+- Displays the result of the sum of two numbers
+
+<aside class="notes"><ul>
+<li>Use a function to add two numbers together</li>
+<li>Use a function to display the result</li>
+<li>Use the &quot;{:?}&quot; token in the println macro to display the result</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Flow control using if..else
+
+Program requirements:
+
+- Displays a message based on the value of a boolean variable
+- When the variable is set to true, display "hello"
+- When the variable is set to false, display "goodbye"
+
+<aside class="notes"><ul>
+<li>Use a variable set to either true or false</li>
+<li>Use an if..else block to determine which message to display</li>
+<li>Use the println macro to display messages to the terminal</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Flow control using if..else if..else
+
+Program requirements:
+
+- Display ">5", "<5", or "=5" based on the value of a variable
+  is > 5, < 5, or == 5, respectively
+  <aside class="notes"><ul>
+<li>Use a variable set to any integer value</li>
+<li>Use an if..else if..else block to determine which message to display</li>
+<li>Use the println macro to display messages to the terminal</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Decision making with match
+
+Program requirements:
+
+- Display "it's true" or "it's false" based on the value of a variable
+  <aside class="notes"><ul>
+<li>Use a variable set to either true or false</li>
+<li>Use a match expression to determine which message to display</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Decision making with match
+
+Program requirements:
+
+- Display "one", "two", "three", or "other" based on whether the value of a variable is 1, 2, 3, or some other number, respectively
+  <aside class="notes"><ul>
+<li>Use a variable set to any integer</li>
+<li>Use a match expression to determine which message to display</li>
+<li>Use an underscore (_) to match on any val</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Looping using the loop statement
+
+Program requirements:
+
+- Display "1" through "4" in the terminal
+  <aside class="notes"><ul>
+<li>Use a mutable integer variable</li>
+<li>Use a loop statement</li>
+<li>Print the variable within the loop statement</li>
+<li>Use break to exit the loop</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Looping using the while statement
+
+Program requirements:
+
+- Counts down from 5 to 1, displays the countdown in the terminal, then prints "done!" when complete.
+
+<aside class="notes"><ul>
+<li>Use a mutable integer variable</li>
+<li>Use a while statement</li>
+<li>Print the variable within the while loop</li>
+<li>Do not use break to exit the loop</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Working with an enum
+
+Program requirements:
+
+- Prints the name of a color to the terminal
+
+<aside class="notes"><ul>
+<li>Use an enum with color names as variants</li>
+<li>Use a function to print the color name</li>
+<li>The function must use the enum as a parameter</li>
+<li>Use a match expression to determine which color
+name to print</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Organizing similar data using structs
+
+Requirements:
+
+- Print the flavor of a drink and it's fluid ounces
+
+<aside class="notes"><ul>
+<li>Use an enum to create different flavors of drinks</li>
+<li>Use a struct to store drink flavor and fluid ounce information</li>
+<li>Use a function to print out the drink flavor and ounces</li>
+<li>Use a match expression to print the drink flavor</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Data management using tuples
+
+Requirements:
+
+- Print whether the y-value of a cartesian coordinate is
+  greater than 5, less than 5, or equal to 5
+
+<aside class="notes"><ul>
+<li>Use a function that returns a tuple</li>
+<li>Destructure the return value into two variables</li>
+<li>Use an if..else if..else block to determine what to print</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Working with expressions
+
+Requirements:
+
+- Print "its big" if a variable is > 100
+- Print "its small" if a variable is <= 100
+
+<aside class="notes"><ul>
+<li>Use a boolean variable set to the result of
+an if..else expression to store whether the value
+is &gt; 100 or &lt;= 100</li>
+<li>Use a function to print the messages</li>
+<li>Use a match expression to determine which message
+to print</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Ownership
+
+Requirements:
+
+- Print out the quantity and id number of a grocery item
+
+<aside class="notes"><ul>
+<li>Use a struct for the grocery item</li>
+<li>Use two i32 fields for the quantity and id number</li>
+<li>Create a function to display the quantity, with the struct as a parameter</li>
+<li>Create a function to display the id number, with the struct as a parameter</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Implementing functionality with the impl keyword
+
+Requirements:
+
+- Print the characteristics of a shipping box
+- Must include dimensions, weight, and color
+
+<aside class="notes"><ul>
+<li>Use a struct to encapsulate the box characteristics</li>
+<li>Use an enum for the box color</li>
+<li>Implement functionality on the box struct to create a new box</li>
+<li>Implement functionality on the box struct to print the characteristics</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Vectors
+
+Requirements:
+
+- Print 10, 20, "thirty", and 40 in a loop
+- Print the total number of elements in a vector
+
+<aside class="notes"><ul>
+<li>Use a vector to store 4 numbers</li>
+<li>Iterate through the vector using a for..in loop</li>
+<li>Determine whether to print the number or print &quot;thirty&quot; inside the loop</li>
+<li>Use the .len() function to print the number of elements in a vector</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Strings
+
+Requirements:
+
+- Print out the name and favorite colors of people aged 10 and under
+
+<aside class="notes"><ul>
+<li>Use a struct for a persons age, name, and favorite color</li>
+<li>The color and name should be stored as a String</li>
+<li>Create and store at least 3 people in a vector</li>
+<li>Iterate through the vector using a for..in loop</li>
+<li>Use an if expression to determine which person&#39;s info should be printed</li>
+<li>The name and colors should be printed using a function</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Advanced match
+
+Requirements:
+
+- Print out a list of tickets and their information for an event
+- Tickets can be Backstage, Vip, and Standard
+- Backstage and Vip tickets include the ticket holder's name
+- All tickets include the price
+
+<aside class="notes"><ul>
+<li>Use an enum for the tickets with data associated with each variant</li>
+<li>Create one of each ticket and place into a vector</li>
+<li>Use a match expression while iterating the vector to print the ticket info</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Option
+
+Requirements:
+
+- Print out the details of a student's locker assignment
+- Lockers use numbers and are optional for students
+
+<aside class="notes"><ul>
+<li>Use a struct containing the student&#39;s name and locker assignment</li>
+<li>The locker assignment should use an Option&lt;i3</li>
+<li>Use a struct containing the student&#39;s name and locker assignment</li>
+<li>The locker assignment should use an Option<i32></li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Browsing standard library documentation
+
+Requirements:
+
+- Print a string in lowercase and uppercase
+
+<aside class="notes"><ul>
+<li>Utilize standard library functionality to
+transform the string to lowercase and uppercase</li>
+<li>Use &#39;rustup doc&#39; in a terminal to open the standard library docs</li>
+<li>Navigate to the API documentation section</li>
+<li>Search for functionality to transform a string (or str)
+to uppercase and lowercase<ul>
+<li>Try searching for: to_uppercase, to_lowercase</li>
+</ul>
+</li>
+</ul>
+</aside></script></section><section  data-markdown><script type="text/template">
+Topic: Result
+
+Requirements:
+
+- Create an structure named `Adult` that represents a person aged 21 or older:
+  - The structure must contain the person's name and age
+  - Implement Debug print functionality using `derive`
+- Implement a `new` function for the `Adult` structure that returns a Result:
+  - The Ok variant should contain the initialized structure, but only
+    if the person is aged 21 or older
+  - The Err variant should contain a String (or &str) that explains why
+    the structure could not be created
+- Instantiate two `Adult` structures:
+  - One should be aged under 21
+  - One should be 21 or over
+- Use `match` to print out a message for each `Adult`:
+  - For the Ok variant, print any message you want
+  - For the Err variant, print out the error message
+</script></section><section  data-markdown><script type="text/template">
+Topic: HashMap
+
+Requirements:
+
+- Print the name and number of items in stock for a furniture store
+- If the number of items is 0, print "out of stock" instead of 0
+- The store has:
+  - 5 Chairs
+  - 3 Beds
+  - 2 Tables
+  - 0 Couches
+- Print the total number of items in stock
+
+<aside class="notes"><ul>
+<li>Use a HashMap for the furniture store stock</li>
+</ul>
+</aside></script></section>
+    </article>
+  </main>
+
+  <script src="./../../dist/reveal.js"></script>
+
+  <script src="./../../plugin/markdown/markdown.js"></script>
+  <script src="./../../plugin/highlight/highlight.js"></script>
+  <script src="./../../plugin/zoom/zoom.js"></script>
+  <script src="./../../plugin/notes/notes.js"></script>
+  <script src="./../../plugin/math/math.js"></script>
+
+  <script src="./../../assets/plugin/mermaid.js"></script>
+  <script src="./../../assets/plugin/mermaid-theme.js"></script>
+
+  <script src="./../../assets/plugin/chart/chart.js"></script>
+  <script src="./../../assets/plugin/chart/chart.min.js"></script>
+
+  <script src="./../../assets/plugin/tailwindcss.min.js"></script>
+
+  <script>
+    function extend() {
+      var target = {};
+      for (var i = 0; i < arguments.length; i++) {
+        var source = arguments[i];
+        for (var key in source) {
+          if (source.hasOwnProperty(key)) {
+            target[key] = source[key];
+          }
+        }
+      }
+      return target;
+    }
+
+    // default options to init reveal.js
+    var defaultOptions = {
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+      transition: 'default', // none/fade/slide/convex/concave/zoom
+      slideNumber: true,
+      mermaid: {
+        startOnLoad: false,
+        logLevel: 3,
+        theme: 'base',
+        themeVariables: {
+          primaryColor: purple,
+          primaryTextColor: white,
+          primaryBorderColor: pink,
+          lineColor: pink,
+          secondaryColor: lightPurple,
+          tertiaryColor: lightPurple,
+        },
+      },
+      chart: {
+        defaults: {
+          color: 'lightgray', // color of labels
+          scale: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 },
+            grid: { color: "lightgray" }, // color of grid lines
+          },
+        },
+        line: { borderColor: ["#ccc", "#E6007A", "#6D3AEE"], "borderDash": [[5, 10], [0, 0]] },
+        bar: { backgroundColor: ["#ccc", "#E6007A", "#6D3AEE"] },
+      },
+      plugins: [
+        RevealMarkdown,
+        RevealHighlight,
+        RevealZoom,
+        RevealNotes,
+        RevealMath,
+        RevealMermaid,
+        RevealChart
+      ]
+    };
+
+    // options from URL query string
+    var queryOptions = Reveal().getQueryHash() || {};
+
+    var options = extend(defaultOptions, {"width":1400,"height":900,"margin":0,"minScale":0.2,"maxScale":2,"transition":"none","controls":true,"progress":true,"center":true,"slideNumber":true,"backgroundTransition":"fade"}, queryOptions);
+  </script>
+
+
+  <script>
+    Reveal.initialize(options);
+  </script>
+</body>
+
+</html>
