@@ -1,0 +1,80 @@
+# Rust artifacts
+**/target
+
+# Build artifacts
+build/
+dist/
+
+# Jupyter artifacts
+
+**/.ipynb_checkpoints/**
+
+# Rust artifacts
+**/target
+
+# Some common ones
+.vscode
+.idea/
+*.iml
+*.iws
+*.eml
+out/
+.DS_Store
+.svn
+log/*.log
+tmp/**
+node_modules/
+.sass-cache
+_static/
+
+# Yarn, not using zero-installs
+# ref: https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+# Yarn Integrity file
+.yarn-integrity
+
+## Draw,io
+*.bkp
+*.dtmp
+
+syllabus/4-Smart_Contracts/*.html
+
+## list of directories that should not be pushed
+cambridge-2022
+buenos-aires-2023
+berkeley-2023
+hong-kong-2024
+current
+
+
+## vite
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
